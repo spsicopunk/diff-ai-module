@@ -1,49 +1,120 @@
-import React from "react";
-import ReactDOM from 'react-dom';
-const stats = [
-	{ id: 1, name: 'Transactions every 24 hours', value: '44 million' },
-	{ id: 2, name: 'Assets under holding', value: '$119 trillion' },
-	{ id: 3, name: 'New users annually', value: '46,000' },
-  ]
-export default class extends React.Component {
+import React, { useState } from "react";
 
-	render() {
-		return (
-            <div>
+const App = () => {
+  const [messages, setMessages] = useState([]); // Almacena los mensajes
+  const [inputValue, setInputValue] = useState(""); // Almacena el valor del input
 
-<div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-          {stats.map((stat) => (
-            <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
-              <dt className="text-base/7 text-gray-600">{stat.name}</dt>
-              <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+  // Función para manejar el envío de mensajes
+  const handleSendMessage = () => {
+    if (inputValue.trim() === "") return; // Evita mensajes vacíos
+
+    // Agrega el mensaje del usuario
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: inputValue, sender: "user" },
+    ]);
+
+    // Simula una respuesta de ambos modelos
+    setTimeout(() => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: "Respuesta de DeepSeek: ...", sender: "ai", model: "deepseek" },
+        { text: "Respuesta de ChatGPT: ...", sender: "ai", model: "chatgpt" },
+      ]);
+    }, 1000);
+
+    setInputValue(""); // Limpia el input
+  };
+
+  return (
+    <div className="flex flex-col h-screen bg-gray-100 p-6">
+      {/* Encabezado del chat */}
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Chat con IA</h1>
+        <p className="text-gray-600">Responde DeepSeek y ChatGPT</p>
+      </div>
+
+      {/* Área de Mensajes en dos columnas */}
+      <div className="flex-1 flex gap-8 overflow-y-auto">
+        {/* Columna de DeepSeek */}
+        <div className="w-1/2 bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 className="text-lg font-bold text-blue-600 mb-4">DeepSeek</h2>
+          <div className="space-y-4"> {/* Espaciado entre mensajes */}
+            {messages
+              .filter((message) => message.model === "deepseek" || message.sender === "user")
+              .map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${
+                    message.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[70%] p-3 rounded-lg ${
+                      message.sender === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-blue-100 text-gray-900"
+                    }`}
+                  >
+                    <div className="text-sm font-semibold mb-1">
+                      {message.sender === "user" ? "Tú" : "DeepSeek"}
+                    </div>
+                    <div>{message.text}</div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+
+        {/* Columna de ChatGPT */}
+        <div className="w-1/2 bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 className="text-lg font-bold text-green-600 mb-4">ChatGPT</h2>
+          <div className="space-y-4"> {/* Espaciado entre mensajes */}
+            {messages
+              .filter((message) => message.model === "chatgpt" || message.sender === "user")
+              .map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${
+                    message.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[70%] p-3 rounded-lg ${
+                      message.sender === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-green-100 text-gray-900"
+                    }`}
+                  >
+                    <div className="text-sm font-semibold mb-1">
+                      {message.sender === "user" ? "Tú" : "ChatGPT"}
+                    </div>
+                    <div>{message.text}</div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Entrada de Texto y Botón de Envío */}
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Escribe un mensaje..."
+          className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={handleSendMessage}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Enviar
+        </button>
       </div>
     </div>
-						<div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-4">
-			<h1 className="text-2xl font-bold text-gray-900">Hola, Tailwind en Liferay!</h1>
-			<p className="text-gray-600">Este es un módulo JS con Tailwind.</p>
-		</div>
-				<h1>Hello world, eso perros</h1>
-				<div>
-        	        <span className="tag">Portlet Namespace:</span> 
-					<span className="value">{this.props.portletNamespace}</span>
-				</div>
-				<div>
-    	            <span className="tag">Context Path:</span>
-					<span className="value">{this.props.contextPath}</span>
-				</div>
-				<div>
-	                <span className="tag">Portlet Element Id:</span>
-					<span className="value">{this.props.portletElementId}</span>
-				</div>
-				
-			</div>
-		);
-	}	
-}
+  );
+};
+
+export default App;
