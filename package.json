@@ -1,0 +1,44 @@
+{
+	"name": "banner",
+	"version": "1.0.0",
+	"description": "Banner",
+	"devDependencies": {
+		"@babel/cli": "^7.7.5",
+		"@babel/core": "^7.26.7",
+		"@babel/preset-env": "^7.26.7",
+		"@babel/preset-react": "^7.26.3",
+		"autoprefixer": "^10.4.20",
+		"babel-loader": "^8.4.1",
+		"copy-webpack-plugin": "12.0.2",
+		"css-loader": "^7.1.2",
+		"html-webpack-plugin": "^5.6.3",
+		"liferay-npm-build-support": "^2.32.2",
+		"liferay-npm-bundler": "^2.32.2",
+		"postcss": "^8.5.1",
+		"postcss-loader": "^8.1.1",
+		"style-loader": "^4.0.0",
+		"tailwindcss": "^4.0.1",
+		"webpack": "^5.97.1",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "5.2.0"
+	},
+	"dependencies": {
+		"@tailwindcss/postcss": "^4.0.1",
+		"react": "16.8.6",
+		"react-dom": "16.8.6"
+	},
+	"scripts": {
+		"build": "babel --source-maps -d build src && npm run copy-assets && liferay-npm-bundler",
+		"copy-assets": "lnbs-copy-assets",
+		"start": "lnbs-start"
+	},
+	"portlet": {
+		"com.liferay.portlet.display-category": "category.sample",
+		"com.liferay.portlet.header-portlet-css": "/css/styles.css",
+		"com.liferay.portlet.instanceable": true,
+		"javax.portlet.name": "banner",
+		"javax.portlet.security-role-ref": "power-user,user",
+		"javax.portlet.display-name": "Banner"
+	},
+	"main": "index.js"
+}
