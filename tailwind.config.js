@@ -1,9 +1,11 @@
 module.exports = {
-    content: [
-      './src/**/*.{html,js,jsx,ts,tsx}', // Ajusta el path según tu estructura
-    ],
-    theme: {
-      extend: {},
-    },
-    plugins: [],
-  }
+  content: ['./src/**/*.{js,jsx}', './public/index.html'],
+  theme: {
+      extend: {
+          colors: {
+              primary: '#1B73E8',
+          },
+      },
+  },
+  plugins: [],
+};
