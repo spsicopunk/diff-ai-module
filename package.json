@@ -31,8 +31,8 @@
 		"react-dom": "16.8.6"
 	},
 	"scripts": {
-		"build:css": "tailwindcss  -o ./src/styles.css --full",
-		"build": "babel --source-maps -d build src && npm run copy-assets && liferay-npm-bundler",
+		"build:css": "tailwindcss -o ./src/styles.css --full",
+		"build": "babel --source-maps -d build src && npm run copy-assets && liferay-npm-bundler && npm run build:css",
 		"copy-assets": "lnbs-copy-assets",
 		"start": "lnbs-start",
 		"deploy": "npm run build && lnbs-deploy"
