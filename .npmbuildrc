@@ -1,21 +1,12 @@
 {
 	"webpack": {
-		"port": 2070
+		"rules": [
+			{
+				"test": "src\\/.*\\.js$",
+				"use": "babel-loader"
+			}
+		]
 	},
-	"resolve": {
-		"extensions": "['.js', '.jsx']"
-	},
-	"rules": [
-		{
-			"test": "src\\/.*\\.js$",
-			"exclude": "/node_modules/",
-			"use": "babel-loader",
-			"loader": "babel-loader",
-			"options": [{
-				"configFile": "../.babelrc"
-			}]
-		}
-	],
 	"start": {
 		"dir": ".webpack",
 		"ejected": true

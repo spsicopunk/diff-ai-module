@@ -2,8 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AppComponent from './AppComponent';
-
+import AppComponent from './components/AppComponent';
 
 /**
  * This is the main entry point of the portlet.
@@ -14,12 +13,8 @@ import AppComponent from './AppComponent';
  * @param  {Object} params a hash with values of interest to the portlet
  * @return {void}
  */
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
-document.head.appendChild(link);
+
 export default function main({ portletNamespace, contextPath, portletElementId }) {
-    console.log("Main function called", { portletNamespace, contextPath, portletElementId });
     ReactDOM.render(
         <AppComponent
             portletNamespace={portletNamespace}
